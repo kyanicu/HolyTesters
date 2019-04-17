@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     private float
         speed;
 
-
     //Internal references
     ObjectMover mover;
 

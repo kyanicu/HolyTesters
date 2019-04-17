@@ -52,10 +52,12 @@ public class ObjectMover : MonoBehaviour
     [SerializeField]
     private bool 
         checkCollisionWhenIdle,
-        phaseThroughColliders;
+        stopOnCollision;
 
     [SerializeField]
     private CollisionType collisionType;
+
+    private bool moveCalled;
 
     // Start is called before the first frame update
     void Start()
@@ -198,41 +200,140 @@ public class ObjectMover : MonoBehaviour
 
     }
 
-    private void MoveMaxPossibleXYDistance(Vector2 moveBy)
+    private void MoveContinuous(Vector2 moveBy)
     {
+        if (stopOnCollision)
+        {
+            Vector2 newMoveBy = moveBy;
+            MoveData moveData;
+            List<Vector2> directions = new List<Vector2>();
+            directions.Add(newMoveBy.normalized);
+            int loops = 0;
+            while (!moveCompleted(moveData = moveUntilCollision(newMoveBy)))
+            {
 
-        Vector2 newMoveBy = moveBy;
-        MoveData moveData;
-        List<Vector2> directions = new List<Vector2>();
-        directions.Add(newMoveBy.normalized);
+                directions.Add(newMoveBy);
+
+                Vector2 slopeFromNormal = Quaternion.Euler(0, 0, -90) * moveData.normal;
+
+                newMoveBy = Vector3.Project(Vector3.Project(moveData.moveLeft, moveBy), slopeFromNormal);
+
+                if (Vector2.Dot(newMoveBy, moveBy) <= 0 || directions.Contains(newMoveBy.normalized))
+                    break;
+
+                directions.Add(newMoveBy.normalized);
+
+                loops++;
+                if (loops > 10)
+                {
+                    Debug.LogError("MoveContinuous(): Possible Infinite Loop. Exiting");
+                    break;
+                }
+            }
+        }
+
+        else
+        {
+            int maxSize = 20;
+
+            Physics2D.queriesHitTriggers = true;
+
+            RaycastHit2D[] hits = new RaycastHit2D[maxSize];
+            int numHits;
+            if ((numHits = col.Cast(moveBy.normalized, hits, moveBy.magnitude)) > 0)
+            {
+
+                if (numHits > maxSize)
+                    numHits = maxSize;
+
+                for (int i = 0; i < numHits; i++)
+                {
+                    if (hits[i].collider.isTrigger)
+                        addTrigger(hits[i].collider);
+                    else
+                        addCollider(hits[i].collider);
+                }
+
+                translate(moveBy);
+
+            }
+
+            Physics2D.queriesHitTriggers = false;
+        }
+    }
+
+    private void checkAndHandleDiscreteCollision()
+    {
+        
+        bool stuck = true;
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(layerMask);
+
+        int maxSize = 20;
+        Collider2D[] colliders = new Collider2D[maxSize];
+        int numHits;
+
         int loops = 0;
-        while (!moveCompleted(moveData = moveUntilCollision(newMoveBy)))
+        while (stuck)
         {
 
-            directions.Add(newMoveBy);
+            stuck = false;
+            if ((numHits = col.OverlapCollider(filter, colliders)) > 0)
+            {
 
-            Vector2 slopeFromNormal = Quaternion.Euler(0, 0, -90) * moveData.normal;
+                if (numHits > maxSize)
+                    numHits = maxSize;
 
-            newMoveBy = Vector3.Project(Vector3.Project(moveData.moveLeft, moveBy), slopeFromNormal);
+                for (int i = 0; i < numHits; i++)
+                {
 
-            if (Vector2.Dot(newMoveBy, moveBy) <= 0 || directions.Contains(newMoveBy.normalized))
-                break;
+                    ColliderDistance2D dist = col.Distance(colliders[i]);
 
-            directions.Add(newMoveBy.normalized);
+                    if (dist.distance < -totalCollisionOffset)
+                    {
+                        
+                        stuck = true;
+
+                        translate(dist.distance * dist.normal);
+                    }
+
+                }
+            }
 
             loops++;
             if (loops > 10)
             {
-                Debug.LogError("moveMaxPossibleXYDistance(): Possible Infinite Loop. Exiting");
+                Debug.LogError("checkAndHandleDiscreteCollision(): Possible Infinite Loop. Exiting");
                 break;
             }
         }
+
+    }
+
+    private void MoveDiscrete(Vector2 moveBy)
+    {
+        translate(moveBy);
+        checkAndHandleDiscreteCollision();
     }
 
     public void Move(Vector2 moveBy)
     {
+        switch (collisionType) {
+            case (CollisionType.CONTINUOUS):
+                MoveContinuous(moveBy);
+                sendCollisionMessages(false);
+                break;
+            case (CollisionType.DISCRETE) :
+                MoveDiscrete(moveBy);
+                sendCollisionMessages(true);
+                break;
+            default :
+                translate(moveBy);
+                break;
+        }
 
-        MoveMaxPossibleXYDistance(moveBy);
+        moveCalled = true;
 
     }
 
@@ -252,7 +353,7 @@ public class ObjectMover : MonoBehaviour
         }
     }
 
-    private void sendCollisionMessages()
+    private void sendCollisionMessages(bool checkForAdditions)
     {
         Physics2D.queriesHitTriggers = true;
 
@@ -269,16 +370,29 @@ public class ObjectMover : MonoBehaviour
         if (numHits >= maxSize)
             numHits = maxSize;
 
+
+        if (checkForAdditions)
+        {
+            for (int i = 0; i < numHits; i++)
+            {
+                if (hits[i].isTrigger)
+                    addTrigger(hits[i]);
+                else
+                    addCollider(hits[i]);
+            }
+        }
+
+
         foreach (Collider2D collider in collidersEntered)
         {
-            SendMessage("onCharCollisionEnter", collider);
+            SendMessage("OnObjectCollisionEnter", collider, SendMessageOptions.DontRequireReceiver);
             collidersStayed.Add(collider);
         }
         collidersEntered.Clear();
 
         foreach (Collider2D trigger in triggersEntered)
         {
-            SendMessage("onCharTriggerEnter", trigger);
+            SendMessage("OnObjectTriggerEnter", trigger, SendMessageOptions.DontRequireReceiver);
             triggersStayed.Add(trigger);
         }
         triggersEntered.Clear();
@@ -291,7 +405,7 @@ public class ObjectMover : MonoBehaviour
                 collidersExited.Add(collider);
             }
             else
-                SendMessage("onCharCollisionStay", collider);
+                SendMessage("OnObjectCollisionStay", collider, SendMessageOptions.DontRequireReceiver);
         }
 
         foreach (Collider2D trigger in triggersStayed)
@@ -301,20 +415,20 @@ public class ObjectMover : MonoBehaviour
                 triggersExited.Add(trigger);
             }
             else
-                SendMessage("onCharTriggerStay", trigger);
+                SendMessage("OnObjectTriggerStay", trigger, SendMessageOptions.DontRequireReceiver);
         }
 
 
         foreach (Collider2D collider in collidersExited)
         {
-            SendMessage("onCharCollisionExit", collider);
+            SendMessage("OnObjectCollisionExit", collider, SendMessageOptions.DontRequireReceiver);
             collidersStayed.Remove(collider);
         }
         collidersExited.Clear();
 
         foreach (Collider2D trigger in triggersExited)
         {
-            SendMessage("onCharTriggerExit", trigger);
+            SendMessage("OnObjectTriggerExit", trigger, SendMessageOptions.DontRequireReceiver);
             triggersStayed.Remove(trigger);
         }
         triggersExited.Clear();
@@ -324,6 +438,13 @@ public class ObjectMover : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        
+
+        if (!moveCalled && checkCollisionWhenIdle && collisionType != CollisionType.NONE)
+        {
+            checkAndHandleDiscreteCollision();
+            sendCollisionMessages(true);
+        }
+
+        moveCalled = false;
     }
 }
