@@ -386,6 +386,7 @@ public class ObjectMover : MonoBehaviour
         foreach (Collider2D collider in collidersEntered)
         {
             SendMessage("OnObjectCollisionEnter", collider, SendMessageOptions.DontRequireReceiver);
+            collider.gameObject.SendMessage("OnObjectCollisionEnter", col, SendMessageOptions.DontRequireReceiver);
             collidersStayed.Add(collider);
         }
         collidersEntered.Clear();
@@ -393,6 +394,7 @@ public class ObjectMover : MonoBehaviour
         foreach (Collider2D trigger in triggersEntered)
         {
             SendMessage("OnObjectTriggerEnter", trigger, SendMessageOptions.DontRequireReceiver);
+            trigger.gameObject.SendMessage("OnObjectTriggerEnter", col, SendMessageOptions.DontRequireReceiver);
             triggersStayed.Add(trigger);
         }
         triggersEntered.Clear();
@@ -405,7 +407,10 @@ public class ObjectMover : MonoBehaviour
                 collidersExited.Add(collider);
             }
             else
+            {
                 SendMessage("OnObjectCollisionStay", collider, SendMessageOptions.DontRequireReceiver);
+                collider.gameObject.SendMessage("OnObjectCollisionStay", col, SendMessageOptions.DontRequireReceiver);
+            }
         }
 
         foreach (Collider2D trigger in triggersStayed)
@@ -415,13 +420,17 @@ public class ObjectMover : MonoBehaviour
                 triggersExited.Add(trigger);
             }
             else
+            {
                 SendMessage("OnObjectTriggerStay", trigger, SendMessageOptions.DontRequireReceiver);
+                trigger.gameObject.SendMessage("OnObjectTriggerStay", col, SendMessageOptions.DontRequireReceiver);
+            }
         }
 
 
         foreach (Collider2D collider in collidersExited)
         {
             SendMessage("OnObjectCollisionExit", collider, SendMessageOptions.DontRequireReceiver);
+            collider.gameObject.SendMessage("OnObjectCollisionExit", col, SendMessageOptions.DontRequireReceiver);
             collidersStayed.Remove(collider);
         }
         collidersExited.Clear();
@@ -429,6 +438,7 @@ public class ObjectMover : MonoBehaviour
         foreach (Collider2D trigger in triggersExited)
         {
             SendMessage("OnObjectTriggerExit", trigger, SendMessageOptions.DontRequireReceiver);
+            trigger.gameObject.SendMessage("OnObjectTriggerExit", col, SendMessageOptions.DontRequireReceiver);
             triggersStayed.Remove(trigger);
         }
         triggersExited.Clear();
