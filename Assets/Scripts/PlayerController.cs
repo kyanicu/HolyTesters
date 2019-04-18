@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     //Fields
     [SerializeField]
-    private float
+    public float
         speed;
 
     //Internal references
