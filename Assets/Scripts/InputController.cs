@@ -31,7 +31,7 @@ public class InputController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        
+
 
     }
 
@@ -77,7 +77,7 @@ public class InputController : MonoBehaviour
 
         switch (currentState)
         {
-            case (InputState.MENU) :
+            case (InputState.MENU):
                 RunMenuInput();
                 break;
             case (InputState.GAMEPLAY):
@@ -86,7 +86,7 @@ public class InputController : MonoBehaviour
             case (InputState.PAUSE):
                 RunPauseInput();
                 break;
-            default :
+            default:
                 break;
         }
 

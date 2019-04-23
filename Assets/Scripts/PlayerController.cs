@@ -5,13 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    //Fields
     [SerializeField]
-    public float
-        speed;
+    private float
+        runSpeed;
 
-    //Internal references
-    ObjectMover mover;
+    private ObjectMover mover;
 
     // Start is called before the first frame update
     void Start()
@@ -19,17 +17,9 @@ public class PlayerController : MonoBehaviour
         mover = GetComponent<ObjectMover>();
     }
 
-    //Only called once during Fixed Update
     public void MovePlayer(Vector2 direction)
     {
-
-        if (direction == Vector2.zero)
-            return;
-
-        direction.Normalize();
-
-        mover.Move(speed * direction * Time.fixedDeltaTime);
-
+        mover.Move(direction * runSpeed * Time.fixedDeltaTime);
     }
 
     // Update is called once per frame
