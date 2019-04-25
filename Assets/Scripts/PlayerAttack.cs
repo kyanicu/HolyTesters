@@ -18,7 +18,7 @@ public class PlayerAttack : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown("space")) {
+        if (Input.GetButtonDown("Fire1")) {
             //Attack in direction of the player
             Vector3 forward = transform.TransformDirection(Vector3.forward) * hitLength;
             //Debug.DrawRay(transform.position, forward, Color.red, 5.0f);
