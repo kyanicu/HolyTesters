@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+/*
+    Created by Nick Tang
+    4/25/19
+*/
 public class EnemyNavAgent : MonoBehaviour
 {
-    GameObject player;
-    private Transform playerTransform;
-    NavMeshAgent agent;
+    GameObject player; //The player object
+    NavMeshAgent agent; //The object that will follow the player object
     
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
-        //playerTransform = playerTransform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //agent.destination = player.transform;
+        //Constantly follow player
+        agent.destination = player.transform.position;
     }
 }
