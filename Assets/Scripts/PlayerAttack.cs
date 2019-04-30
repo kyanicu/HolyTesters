@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
-    Created by Nick Tang 4/23/19
+    Created by Nick Tang 
+    4/23/19
 */
 
 public class PlayerAttack : MonoBehaviour
