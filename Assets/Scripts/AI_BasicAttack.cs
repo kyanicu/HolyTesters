@@ -10,7 +10,7 @@ using UnityEngine;
 public class AI_BasicAttack : MonoBehaviour
 {
 
-    [SerializeField] private double attackPower;
+    [SerializeField] private float attackPower;
     // Start is called before the first frame update
     void Start()
     {

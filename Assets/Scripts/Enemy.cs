@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 /*
     Created by Nick Tang 
     4/23/19
@@ -10,12 +10,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public int health;
+    public int maxHealth = 10;
+    public Slider healthBar;
+
+    void Start()
+    {
+        health = maxHealth;
+        healthBar.maxValue = maxHealth;
+    }
 
     void Update()
     {
         if (health <= 0) {
             die();
         }
+    }
+
+    void FixedUpdate() {
+        healthBar.value = health;
     }
 
     public void takeDamage(int attackPower) {

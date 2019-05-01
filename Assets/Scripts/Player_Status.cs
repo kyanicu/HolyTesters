@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 /*
     Created by Nick Tang 
     4/30/19
@@ -9,7 +9,8 @@ using UnityEngine;
 
 public class Player_Status : MonoBehaviour
 {
-    [SerializeField] private double health;
+    [SerializeField] private float health;
+    [SerializeField] private Slider healthbar;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,14 +23,18 @@ public class Player_Status : MonoBehaviour
         
     }
 
-    public void setHealth(double amount) {
+    void FixedUpdate() {
+        healthbar.value = health;
+    }
+
+    public void setHealth(float amount) {
         health = amount;
     }
-    public double getHealth() {
+    public float getHealth() {
         return health;
     }
 
-    public void takeDamage(double amount) {
+    public void takeDamage(float amount) {
         health -= amount;
     }
 }

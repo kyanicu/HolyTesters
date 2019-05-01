@@ -29,14 +29,10 @@ public class EnemyNavAgent : MonoBehaviour
                 goToPlayer();
                 break;
             case "wander":
-                //Debug.Log("Wandering");
                 agent.SetDestination(RandomNavmeshLocation(100f));
                 break;
         }
-        //Constantly follow player
-        //agent.destination = player.transform.position;
-        //Wander
-        //agent.SetDestination(RandomNavmeshLocation(100f));
+
     }
 
     public void setState(string desiredState) {

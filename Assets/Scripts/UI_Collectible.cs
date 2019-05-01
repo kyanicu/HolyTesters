@@ -27,8 +27,6 @@ public class UI_Collectible : MonoBehaviour
             customBackground.enabled = true;
             StartCoroutine(FadeOut());
             mesh.enabled = false;
-            Debug.Log("Entered grail");
-
         }
         
     }
