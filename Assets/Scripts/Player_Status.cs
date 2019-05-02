@@ -16,6 +16,14 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private float healthRegenSpeed;
     [SerializeField] private float healthRegenAmount;
 
+    PlayerController playCont;
+    private ObjectMover mover;
+
+    [SerializeField]
+    private float
+        kbDecel,
+        kbStunTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +32,10 @@ public class Player_Status : MonoBehaviour
         healthRegenSpeed = 2;
         healthRegenAmount = 3;
         isRegenHealth = false;
+
+        playCont = GetComponent<PlayerController>();
+        mover = GetComponent<ObjectMover>();
+
     }
 
     // Update is called once per frame
@@ -34,6 +46,31 @@ public class Player_Status : MonoBehaviour
         {
             StartCoroutine(regainHealthOverTime());
         }
+
+    }
+
+    public void TakeKnockBack(Vector2 direction, float speed)
+    {
+        StartCoroutine("KnockBack", direction * speed);
+    }
+
+    public IEnumerator KnockBack(Vector2 velocity)
+    {
+        playCont.Stun();
+
+        for (float currSpeed = velocity.magnitude; currSpeed > 0; currSpeed -= kbDecel * Time.fixedDeltaTime)
+        {
+            mover.Move(velocity.normalized * currSpeed * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+
+        for (float timer = 0; timer < kbStunTimer; timer += Time.fixedDeltaTime)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+
+        playCont.Unstun();
 
     }
 
@@ -51,7 +88,7 @@ public class Player_Status : MonoBehaviour
         return health;
     }
 
-    public void takeDamage(float amount)
+    public void TakeDamage(float amount)
     {
         health -= amount;
     }

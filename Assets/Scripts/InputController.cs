@@ -31,8 +31,25 @@ public class InputController : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
+        if(Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+        {
+
+            Vector2 moveDirection = Vector2.zero;
 
 
+            if (Input.GetKey(KeyCode.A))
+                moveDirection += Vector2.left;
+            if (Input.GetKey(KeyCode.D))
+                moveDirection += Vector2.right;
+            if (Input.GetKey(KeyCode.W))
+                moveDirection += Vector2.up;
+            if (Input.GetKey(KeyCode.S))
+                moveDirection += Vector2.down;
+    
+            moveDirection.Normalize();
+            playerController.InitiateDash(moveDirection);
+        
+        }
     }
 
     private void RunGameplayFixedInput()

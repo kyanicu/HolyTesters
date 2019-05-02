@@ -10,7 +10,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     public int playerPower; //How much damage the attack does
-    public float pushForce; //How far the enemy is pushed after being hit
+    public float pushSpeed; //How far the enemy is pushed after being hit
     public float hitLength; //Range of attack
 
     private GameObject enemy;
@@ -21,24 +21,21 @@ public class PlayerAttack : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1")) {
             //Attack in direction of the player
-            Vector3 forward = transform.TransformDirection(Vector3.forward) * hitLength;
+            Vector3 forward = transform.forward;
             //Debug.DrawRay(transform.position, forward, Color.red, 5.0f);
-            if (Physics.Raycast(transform.position, (forward), out hit)){
+            if (Physics.Raycast(transform.position, forward, out hit, hitLength)){
+                
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
                     //Debug.Log("Hit Enemy");
                     enemy = hit.collider.gameObject;
-                    enemyRB = enemy.GetComponent<Rigidbody>();
                     //Enemy take damage
                     enemy.GetComponent<Enemy>().health -= playerPower;
-                    Vector3 direction = (transform.position - enemy.transform.position).normalized;
+                    Vector2 direction = new Vector2(transform.forward.x, transform.forward.z);
                     //Enemy gets pushed away from player
-                    enemyRB.AddForce(-direction * pushForce);
-                    
+                    enemy.GetComponent<Enemy>().TakeKnockBack(direction, pushSpeed);
                 }
             }
         }
-    }
-
-    
+    }    
 }

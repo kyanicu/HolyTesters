@@ -12,6 +12,9 @@ public class EnemyNavAgent : MonoBehaviour
     GameObject player; //The player object
     NavMeshAgent agent; //The object that will follow the player object
     [SerializeField] private string state;
+    
+    private bool isStunned;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,18 @@ public class EnemyNavAgent : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void Stun()
+    {
+        isStunned = true;
+        agent.isStopped = true;
+    }
+
+    public void Unstun()
+    {
+        isStunned = false;
+        agent.isStopped = false;
     }
 
     public void setState(string desiredState) {

@@ -10,16 +10,24 @@ using UnityEngine;
 public class AI_BasicAttack : MonoBehaviour
 {
 
-    [SerializeField] private float attackPower;
+    [SerializeField] private float
+        attackPower,
+        pushSpeed;
+
+    Enemy status;
     // Start is called before the first frame update
     void Start()
     {
         attackPower = 10;
+        status = GetComponentInParent<Enemy>();
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")) {
-            other.gameObject.GetComponent<Player_Status>().takeDamage(attackPower);
+            Player_Status player = other.gameObject.GetComponent<Player_Status>();
+            player.TakeDamage(attackPower);
+            player.TakeKnockBack(new Vector2(transform.forward.x, transform.forward.z), pushSpeed);
+            status.InitiateAttackCoolDown();
         }
     }
 }
