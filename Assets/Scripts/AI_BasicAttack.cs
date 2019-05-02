@@ -14,7 +14,7 @@ public class AI_BasicAttack : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        attackPower = 1;
+        attackPower = 10;
     }
 
     void OnTriggerEnter(Collider other) {
