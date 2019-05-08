@@ -37,18 +37,21 @@ public class ObjectMover : MonoBehaviour
     {
         
         Vector3 moveByXZ = new Vector3(moveBy.x, 0, moveBy.y);
-
+        /*
         if (hasRigidbody && isContinuous)
         {
+
             RaycastHit hit;
             if (rb.SweepTest(moveByXZ.normalized, out hit, moveByXZ.magnitude))
             {
-                moveByXZ = moveByXZ.normalized * (hit.distance + Physics.defaultContactOffset + 0.0035f);
+                if (hit.distance > Physics.defaultContactOffset + 0.0035f)
+                    moveByXZ = moveByXZ.normalized * (hit.distance - Physics.defaultContactOffset + 0.0035f);
             }
 
         }
-
-        transform.position += moveByXZ;
+        */
+        //transform.position += moveByXZ;
+        GetComponent<CharacterController>().Move(moveByXZ);
     }
 
     // Update is called once per frame
