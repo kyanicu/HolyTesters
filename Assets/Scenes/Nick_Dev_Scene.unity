@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 170076734}
-  m_IndirectSpecularColor: {r: 0.44657838, g: 0.49641234, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3432,6 +3432,7 @@ GameObject:
   - component: {fileID: 1970966578}
   - component: {fileID: 1970966577}
   - component: {fileID: 1970966579}
+  - component: {fileID: 1970966580}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -3448,7 +3449,7 @@ BoxCollider:
   m_GameObject: {fileID: 1970966570}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3595,6 +3596,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3c92382df45ca49917811c69f32873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &1970966580
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970966570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.7
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1990340893 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2783693149778027090, guid: 4d646a1ab6f9c5141bf16f8da2446fed,
@@ -3726,7 +3745,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 2050114684}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.3
   m_Height: 2
   m_Direction: 1
@@ -3750,6 +3769,24 @@ MonoBehaviour:
   healthRegenAmount: 0
   kbDecel: 30
   kbStunTimer: 0
+--- !u!143 &2050114690
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050114684}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.3
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &2050114691 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 466c93107672d4946bc91e2619dcc85c,
