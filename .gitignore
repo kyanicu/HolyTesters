@@ -36,7 +36,7 @@ Thumbs.db
 # Unity3D generated meta files
 *.pidb.meta
 *.pdb.meta
-*.meta
+*.mdb.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
@@ -45,9 +45,12 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Library/metadata/73/7350b65a6431f604a8496c39db1ac9c5\\.info
-
+Library/metadata/*
 Library/shadercompiler-UnityShaderCompiler\\.exe0\\.log
 
 Library/PackageCache/
 Library\CurrentLayout.dwlt
 Assets/Enemies/Mite\\.asset\\.meta
+
+# Crashlytics generated file
+crashlytics-build.properties
