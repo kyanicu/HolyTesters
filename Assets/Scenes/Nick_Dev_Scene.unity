@@ -3609,8 +3609,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 1
   m_Radius: 0.7
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -3782,8 +3782,8 @@ CharacterController:
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
+  m_SlopeLimit: 0
+  m_StepOffset: 0
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
@@ -4034,6 +4034,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.66718984
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783693150628259044, guid: 4d646a1ab6f9c5141bf16f8da2446fed,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.523465
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783693150628259044, guid: 4d646a1ab6f9c5141bf16f8da2446fed,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783693150628259044, guid: 4d646a1ab6f9c5141bf16f8da2446fed,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.8043282
+      objectReference: {fileID: 0}
+    - target: {fileID: 2783693150628259044, guid: 4d646a1ab6f9c5141bf16f8da2446fed,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d646a1ab6f9c5141bf16f8da2446fed, type: 3}
