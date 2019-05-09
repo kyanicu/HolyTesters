@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 7964289588484896827}
   - component: {fileID: 7964289588484896824}
   - component: {fileID: 7964289588484896825}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ MonoBehaviour:
   - {fileID: 2847335391674717591}
   - {fileID: 2857795151870835956}
   - {fileID: 157372506665760288}
-  MeshCollider: {fileID: 7964289588484896825}
+  MeshCollider: {fileID: 3742728810858811401}
 --- !u!64 &3742728810858811401
 MeshCollider:
   m_ObjectHideFlags: 0

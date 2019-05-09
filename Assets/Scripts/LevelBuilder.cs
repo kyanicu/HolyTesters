@@ -147,7 +147,7 @@ public class LevelBuilder : MonoBehaviour
     bool CheckRoomOverlap(Room room) 
     {
         Bounds bounds = room.RoomBounds;
-        bounds.Expand(-0.1f);
+        bounds.Expand(-10f);
         Collider test = room.MeshCollider;
         var testRoom = room.GetComponentsInChildren<Collider>();
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
