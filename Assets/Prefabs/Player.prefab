@@ -318,6 +318,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LaserTemplar
       objectReference: {fileID: 0}
+    - target: {fileID: -6057140222963153312, guid: cd1c9ae2557dbdc45905421cf4ab8902,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 8c029bee6f95d6f4e838855eae6b1a3d, type: 2}
     - target: {fileID: -4216859302048453862, guid: cd1c9ae2557dbdc45905421cf4ab8902,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -326,7 +331,7 @@ PrefabInstance:
     - target: {fileID: -4216859302048453862, guid: cd1c9ae2557dbdc45905421cf4ab8902,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.952
+      value: -0.97
       objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: cd1c9ae2557dbdc45905421cf4ab8902,
         type: 3}

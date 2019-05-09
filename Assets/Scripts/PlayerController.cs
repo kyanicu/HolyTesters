@@ -21,12 +21,14 @@ public class PlayerController : MonoBehaviour
 
     private ObjectMover mover;
     private Animator animator;
+    private CameraScript cameraScript;
 
     // Start is called before the first frame update
     void Start()
     {
         mover = GetComponent<ObjectMover>();
         animator = GetComponentInChildren<Animator>();
+        cameraScript = Camera.main.GetComponent<CameraScript>();
     }
     public void MovePlayer(Vector2 direction)
     { 
@@ -52,7 +54,15 @@ public class PlayerController : MonoBehaviour
 
     public void OnCollisionEnter(Collision col) 
     {
-        
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "RoomTransitioner")
+        {
+            cameraScript.ChangeCenter(other.transform.parent.transform.position);
+        }
     }
 
     public void InitiateDash(Vector2 direction) 
