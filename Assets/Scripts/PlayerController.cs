@@ -16,27 +16,37 @@ public class PlayerController : MonoBehaviour
 
     private bool
         isDashing,
+        isRunning,
         isStunned;
 
     private ObjectMover mover;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         mover = GetComponent<ObjectMover>();
+        animator = GetComponentInChildren<Animator>();
     }
     public void MovePlayer(Vector2 direction)
-    {
+    { 
+        if (isRunning && direction == Vector2.zero)
+        {
+            animator.SetBool("Running", false);
+            isRunning = false;
+        }
 
         direction.Normalize();
 
         if(isStunned /*|| isDashing*/ || direction == Vector2.zero)
             return;
-        else
-            mover.Move(direction * runSpeed * Time.fixedDeltaTime);
-    
-        if (!isDashing)
-            transform.forward = new Vector3(direction.x, 0, direction.y);
+        
+        if (!isRunning)
+            animator.SetBool("Running", true);
+
+        mover.Move(direction * runSpeed * Time.fixedDeltaTime);
+        isRunning = true;
+        transform.forward = new Vector3(direction.x, 0, direction.y);
     
     }
 
@@ -55,6 +65,8 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Dash(Vector2 direction) 
     {
+        transform.forward = new Vector3(direction.x, 0, direction.y);
+
         isDashing = true;
         
         for (float timer = 0; timer < dashTime; timer += Time.fixedDeltaTime)
@@ -89,6 +101,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log(isRunning);
     }
 }

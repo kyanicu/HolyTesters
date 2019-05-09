@@ -16,10 +16,20 @@ public class PlayerAttack : MonoBehaviour
     private GameObject enemy;
     private Rigidbody enemyRB;
     private RaycastHit hit;
-    
+
+    private Animator animator;
+
+    private void Start()
+    {
+        animator = transform.parent.GetComponentInChildren<Animator>();
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("Fire1")) {
+
+            animator.SetTrigger("Punch");
+
             //Attack in direction of the player
             Vector3 forward = transform.forward;
             //Debug.DrawRay(transform.position, forward, Color.red, 5.0f);

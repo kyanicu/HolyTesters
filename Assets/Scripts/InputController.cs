@@ -54,8 +54,6 @@ public class InputController : MonoBehaviour
 
     private void RunGameplayFixedInput()
     {
-        if (!Input.anyKey)
-            return;
 
         Vector2 moveDirection = Vector2.zero;
 
