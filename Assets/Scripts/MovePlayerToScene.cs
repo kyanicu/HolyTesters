@@ -34,6 +34,7 @@ public class MovePlayerToScene : MonoBehaviour
         SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByBuildIndex(levelIndex));
         SceneManager.MoveGameObjectToScene(Canvas, SceneManager.GetSceneByBuildIndex(levelIndex));
         SceneManager.MoveGameObjectToScene(Controller, SceneManager.GetSceneByBuildIndex(levelIndex));
+        Camera.GetComponent<CameraScript>().ChangeCenter(Vector3.zero);
         SceneManager.MoveGameObjectToScene(Camera, SceneManager.GetSceneByBuildIndex(levelIndex));
         // Unload the previous Scene
         SceneManager.UnloadSceneAsync(currentScene);
