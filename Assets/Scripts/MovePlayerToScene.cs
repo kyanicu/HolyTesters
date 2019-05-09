@@ -22,7 +22,7 @@ public class MovePlayerToScene : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
 
         // The Application loads the Scene in the background at the same time as the current Scene.
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Additive);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Single);
 
         // Wait until the last operation fully loads to return anything
         while (!asyncLoad.isDone)
