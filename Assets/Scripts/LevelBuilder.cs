@@ -96,10 +96,13 @@ public class LevelBuilder : MonoBehaviour
             foreach (Doorway currentDoorway in currentRoomDoorways)
             {
                 PositionRoomAtDoorway(ref currentRoom, currentDoorway, availableDoorway);
+                //Debug.Log(currentRoom);
 
                 if (CheckRoomOverlap(currentRoom))
                 {
+                    //Debug.Log("HI");
                     continue;
+
                 }
 
                 roomPlaced = true;
@@ -145,14 +148,18 @@ public class LevelBuilder : MonoBehaviour
     {
         Bounds bounds = room.RoomBounds;
         bounds.Expand(-0.1f);
-
+        Collider test = room.MeshCollider;
+        var testRoom = room.GetComponentsInChildren<Collider>();
         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
         if(colliders.Length > 0)
         {
-            foreach(Collider c in colliders) {
+           
+            foreach (Collider c in colliders) {
                 if(c.transform.parent.gameObject.Equals(room.gameObject ))
-                {    
+                {
+                    Debug.LogError("overlap detected");
                     continue;
+                   
                 } 
                 else 
                 {
@@ -161,7 +168,9 @@ public class LevelBuilder : MonoBehaviour
                 }
             }
         }
+        Debug.Log(colliders.Length);
         return false;
+
     }
     void PlaceEndRoom()
     {
