@@ -49,5 +49,13 @@ public class PlayerAttack : MonoBehaviour
             }
             Physics.queriesHitTriggers = false;
         }
-    }    
+    }
+
+    public void setPlayerPower(int power) {
+        playerPower = power;
+    }
+
+    public int getPlayerPower() {
+        return playerPower;
+    }
 }
