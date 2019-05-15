@@ -15,9 +15,15 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private Slider healthbar;
     [SerializeField] private float healthRegenSpeed;
     [SerializeField] private float healthRegenAmount;
+    [SerializeField] private string equippedGrail;
+    public string equippedLiquid;
+    public bool grailFilled;
 
+    PlayerAttack playAtk;
     PlayerController playCont;
     private ObjectMover mover;
+    Inventory inventory; 
+
 
     [SerializeField]
     private float
@@ -35,18 +41,15 @@ public class Player_Status : MonoBehaviour
 
         playCont = GetComponent<PlayerController>();
         mover = GetComponent<ObjectMover>();
-
+        playAtk = GetComponentInChildren<PlayerAttack>();
+        inventory = GetComponent<Inventory>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (health != maxHealth && !isRegenHealth)
-        {
-            StartCoroutine(regainHealthOverTime());
-        }
-
+        
     }
 
     public void TakeKnockBack(Vector2 direction, float speed)
@@ -77,6 +80,7 @@ public class Player_Status : MonoBehaviour
     void FixedUpdate()
     {
         healthbar.value = health;
+        StartCoroutine(grailEval());
     }
 
     public void setHealth(float amount)
@@ -97,6 +101,9 @@ public class Player_Status : MonoBehaviour
     {
         if (health < maxHealth) {
             health += healthRegenAmount;
+            if (health > maxHealth) {
+                health = maxHealth;
+            }
         }
     }
 
@@ -109,5 +116,35 @@ public class Player_Status : MonoBehaviour
             yield return new WaitForSeconds(healthRegenSpeed);
         }
         isRegenHealth = false;
+    }
+    //Determines if the grail is filled or not with water (currently)
+    private IEnumerator grailEval()
+    {
+        
+        equippedGrail = inventory.getEquippedName();
+        if (equippedLiquid == "water")
+        {
+            grailFilled = true;
+            determineGrail();
+        }
+        else {
+            grailFilled = false;
+        }
+        
+        yield return new WaitForFixedUpdate();
+    }
+    //Section to determine which grail effect to apply
+    public void determineGrail() {
+        switch (equippedGrail) {
+            case "Grail of Healing":
+                if (health != maxHealth && !isRegenHealth && grailFilled)
+                {
+                    StartCoroutine(regainHealthOverTime());
+                }
+                break;
+            case "Grail of Damage":
+                playAtk.setPlayerPower(playAtk.getPlayerPower() * 2);
+                break;
+        }
     }
 }

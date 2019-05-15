@@ -22,7 +22,7 @@ public class MovePlayerToScene : MonoBehaviour
         Scene currentScene = SceneManager.GetActiveScene();
 
         // The Application loads the Scene in the background at the same time as the current Scene.
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Additive);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex, LoadSceneMode.Single);
 
         // Wait until the last operation fully loads to return anything
         while (!asyncLoad.isDone)
@@ -34,6 +34,7 @@ public class MovePlayerToScene : MonoBehaviour
         SceneManager.MoveGameObjectToScene(m_MyGameObject, SceneManager.GetSceneByBuildIndex(levelIndex));
         SceneManager.MoveGameObjectToScene(Canvas, SceneManager.GetSceneByBuildIndex(levelIndex));
         SceneManager.MoveGameObjectToScene(Controller, SceneManager.GetSceneByBuildIndex(levelIndex));
+        Camera.GetComponent<CameraScript>().ChangeCenter(Vector3.zero);
         SceneManager.MoveGameObjectToScene(Camera, SceneManager.GetSceneByBuildIndex(levelIndex));
         // Unload the previous Scene
         SceneManager.UnloadSceneAsync(currentScene);

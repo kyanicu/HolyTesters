@@ -33,8 +33,9 @@ public class PlayerAttack : MonoBehaviour
             //Attack in direction of the player
             Vector3 forward = transform.forward;
             //Debug.DrawRay(transform.position, forward, Color.red, 5.0f);
-            if (Physics.Raycast(transform.position, forward, out hit, hitLength)){
-                
+            Physics.queriesHitTriggers = true;
+            if (Physics.Raycast(transform.position + Vector3.up, forward, out hit, hitLength)){
+            
                 if (hit.collider.gameObject.tag == "Enemy")
                 {
                     //Debug.Log("Hit Enemy");
@@ -46,6 +47,15 @@ public class PlayerAttack : MonoBehaviour
                     enemy.GetComponent<Enemy>().TakeKnockBack(direction, pushSpeed);
                 }
             }
+            Physics.queriesHitTriggers = false;
         }
-    }    
+    }
+
+    public void setPlayerPower(int power) {
+        playerPower = power;
+    }
+
+    public int getPlayerPower() {
+        return playerPower;
+    }
 }
