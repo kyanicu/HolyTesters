@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 586802455269953671}
   - component: {fileID: 4051123207741628487}
   - component: {fileID: 6278936879115470040}
-  - component: {fileID: 9069167542057838064}
+  - component: {fileID: 1150839243714885466}
   m_Layer: 0
   m_Name: Doorway
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2693137681794640400}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87, y: 2.14, z: -39.84}
-  m_LocalScale: {x: 3.3811743, y: 6.5966063, z: 7.2644}
+  m_LocalPosition: {x: 2.74, y: 1.35, z: -21.35}
+  m_LocalScale: {x: 2.7531123, y: 2.7068343, z: 2.1425}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4bba946a6f206d143ae6378793d669d4, type: 2}
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,7 +93,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &9069167542057838064
+--- !u!114 &1150839243714885466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,6 +102,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 2693137681794640400}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597dbf5b407d2244da083fbc6a832f19, type: 3}
+  m_Script: {fileID: 11500000, guid: 39a9c62b29739154aa0ae49d162f3ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
