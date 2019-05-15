@@ -16,25 +16,8 @@ public class PickupObject : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
-            for (int i = 0; i < inventory.slots.Length; i++)
-            {
-                if (inventory.isFull[i] == false)
-                {
-                    inventory.isFull[i] = true;
-                    Instantiate(itemButton, inventory.slots[i].transform, false);
-                    //Destroy(gameObject);
-                    break;
-                }
-            }
-            Debug.Log("picked up");
-            //Destroy(gameObject);
+            inventory.addItem(this.name);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
