@@ -414,6 +414,18 @@ RectTransform:
   m_AnchoredPosition: {x: -4.8, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &154801667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8488063301696617653, guid: 6408fb871acf9644694d6ffbbafbf07f,
+    type: 3}
+  m_PrefabInstance: {fileID: 858296195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fc75c92465d764ebcbe69284b987a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -753,9 +765,9 @@ MonoBehaviour:
   endRoomPrefab: {fileID: 7174304331896983336, guid: f3b1a77b06350cb43a0e0d8efd5de073,
     type: 3}
   roomPrefabs:
+  - {fileID: 154801667}
   - {fileID: 2964334185233367411, guid: 1b66d0e1724f47840a911018e0382ef9, type: 3}
-  - {fileID: 2964334185233367411, guid: 1b66d0e1724f47840a911018e0382ef9, type: 3}
-  iterantionRange: {x: 3, y: 10}
+  iterantionRange: {x: 5, y: 10}
 --- !u!4 &408388276
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,7 +1021,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &551950321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1402,7 +1414,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1801,7 +1813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1256813060
 Transform:
   m_ObjectHideFlags: 0
@@ -1861,7 +1873,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2128,6 +2140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7a8fcad8b658d48b17917c97ad7350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   itemButton: {fileID: 0}
 --- !u!4 &1441112462 stripped
 Transform:
@@ -2737,6 +2750,9 @@ MonoBehaviour:
   healthbar: {fileID: 1212852647}
   healthRegenSpeed: 0
   healthRegenAmount: 0
+  equippedGrail: 
+  equippedLiquid: 
+  grailFilled: 0
   kbDecel: 0
   kbStunTimer: 0
 --- !u!4 &2050114691 stripped
@@ -2757,8 +2773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2486e8f5f98833747b765911e8ce06ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isFull: 
-  slots: []
+  equipped: 
 --- !u!114 &779890014963117738 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 779890014963117738, guid: d48a25cc6df93d74780de6970d9318fe,

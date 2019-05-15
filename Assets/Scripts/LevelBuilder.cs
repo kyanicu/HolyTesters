@@ -51,9 +51,9 @@ public class LevelBuilder : MonoBehaviour
 
         yield return interval;
 
-        Debug.Log("Level generation finished");
-        yield return new WaitForSeconds(3);
-        ResetLevelGenerator();
+        // Debug.Log("Level generation finished");
+        // yield return new WaitForSeconds(3);
+        // ResetLevelGenerator();
 
 
     }
@@ -144,36 +144,103 @@ public class LevelBuilder : MonoBehaviour
         room.transform.position = targetDoorway.transform.position - roomPositionOffset;
     }
 
-    bool CheckRoomOverlap(Room room) 
-    {
-        Bounds bounds = room.RoomBounds;
-        bounds.Expand(-10f);
-        Collider test = room.MeshCollider;
-        var testRoom = room.GetComponentsInChildren<Collider>();
-        Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation, roomLayerMask);
-        if(colliders.Length > 0)
-        {
+//     bool CheckRoomOverlap(Room room) 
+//     {
+//         Bounds bounds = room.RoomBounds;
+//         bounds.Expand(-0.1f);
+//         Collider test = room.MeshCollider;
+//         var testRoom = room.GetComponentsInChildren<Collider>();
+//         Collider[] colliders = Physics.OverlapBox(bounds.center, bounds.size / 2, room.transform.rotation,roomLayerMask);
+//         if(colliders.Length > 0)
+//         {
            
-            foreach (Collider c in colliders) {
-                if(c.transform.parent.gameObject.Equals(room.gameObject ))
-                {
-                    Debug.LogError("overlap detected");
-                    continue;
+//             foreach (Collider c in colliders) {
+//                 if(c.transform.parent.gameObject.Equals(room.gameObject ))
+//                 {
+//                     continue;
                    
-                } 
-                else 
-                {
-                     Debug.LogError("overlap detected");
-                     return true;
-                }
+//                 } 
+//                 else 
+//                 {
+//                      Debug.Log("overlap detected");
+//                      return true;
+//                 }
+//             }
+//         }
+//         return false;
+
+//    }
+
+    bool CheckRoomOverlap(Room room)
+    {
+        Vector3 roomPos = room.gameObject.transform.position;
+        Vector3 pt1 = new Vector3(room.RoomBounds.center.x - room.RoomBounds.extents.x, room.RoomBounds.center.y + room.RoomBounds.extents.y, room.RoomBounds.center.z - room.RoomBounds.extents.z);
+        Vector3 pt2 = new Vector3(room.RoomBounds.center.x - room.RoomBounds.extents.x, room.RoomBounds.center.y - room.RoomBounds.extents.y, room.RoomBounds.center.z + room.RoomBounds.extents.z);
+        Vector3 pt3 = new Vector3(room.RoomBounds.center.x - room.RoomBounds.extents.x, room.RoomBounds.center.y + room.RoomBounds.extents.y, room.RoomBounds.center.z + room.RoomBounds.extents.z);
+        Vector3 pt4 = new Vector3(room.RoomBounds.center.x + room.RoomBounds.extents.x, room.RoomBounds.center.y - room.RoomBounds.extents.y, room.RoomBounds.center.z - room.RoomBounds.extents.z);
+        Vector3 pt5 = new Vector3(room.RoomBounds.center.x + room.RoomBounds.extents.x, room.RoomBounds.center.y + room.RoomBounds.extents.y, room.RoomBounds.center.z - room.RoomBounds.extents.z);
+        Vector3 pt6 = new Vector3(room.RoomBounds.center.x + room.RoomBounds.extents.x, room.RoomBounds.center.y - room.RoomBounds.extents.y, room.RoomBounds.center.z + room.RoomBounds.extents.z);
+
+        foreach (Room r in placedRooms)
+        {
+            if (r.RoomBounds.Intersects(room.RoomBounds) || 
+                r.RoomBounds.Contains(roomPos)|| 
+                r.RoomBounds.Contains(room.RoomBounds.min) 
+                || r.RoomBounds.Contains(room.RoomBounds.max)
+                || r.RoomBounds.Contains(pt1)
+                || r.RoomBounds.Contains(pt2)
+                || r.RoomBounds.Contains(pt3)
+                || r.RoomBounds.Contains(pt4)
+                || r.RoomBounds.Contains(pt5)
+                || r.RoomBounds.Contains(pt6))
+            {
+                // Debug.Log("Overlap Detected");
+                return true;
             }
         }
-        Debug.Log(colliders.Length);
-        return false;
 
+        return false;
     }
     void PlaceEndRoom()
     {
+        endRoom = Instantiate (endRoomPrefab) as EndRoom;
+        endRoom.transform.parent = this.transform;
+
+        
+        List<Doorway> allAvailableDoorways = new List<Doorway>(availableDoorways);
+        Doorway doorway = endRoom.doorways [0];
+
+
+        bool roomPlaced = false;
+
+          foreach (Doorway availableDoorway in allAvailableDoorways)
+        {
+            Room room = (Room)endRoom;
+
+             PositionRoomAtDoorway(ref room, doorway, availableDoorway);
+                //Debug.Log(currentRoom);
+                if (CheckRoomOverlap(endRoom))
+                {
+                    //Debug.Log("HI");
+                    continue;
+
+                }
+
+                roomPlaced = true;
+
+                 doorway.gameObject.SetActive(false);
+                availableDoorways.Remove(doorway);
+
+                availableDoorway.gameObject.SetActive(false);
+                availableDoorways.Remove(availableDoorway);
+
+                break;
+        }
+
+         if (!roomPlaced) {
+            ResetLevelGenerator();
+        }
+
 
     }
 

@@ -892,7 +892,7 @@ GameObject:
   - component: {fileID: 2973865466745872641}
   - component: {fileID: 779890014963117738}
   - component: {fileID: 3470798694816774510}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Corridor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -954,7 +954,7 @@ MonoBehaviour:
   - {fileID: 1698721559489883014}
   - {fileID: 1698721559378626460}
   - {fileID: 1698721560844867056}
-  MeshCollider: {fileID: 3470798694816774510}
+  MeshCollider: {fileID: 2973865467268127333}
 --- !u!64 &3470798694816774510
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -964,7 +964,7 @@ MeshCollider:
   m_GameObject: {fileID: 2973865466745872640}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14

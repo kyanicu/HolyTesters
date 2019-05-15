@@ -8,7 +8,7 @@ public class Room : MonoBehaviour
     public MeshCollider MeshCollider;
     public Bounds RoomBounds
     {
-        get { Debug.Log(MeshCollider.name); return MeshCollider.bounds; }
+        get { return MeshCollider.bounds; }
         
     }
 }
