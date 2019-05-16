@@ -100,7 +100,7 @@ public class Enemy : MonoBehaviour
             //Debug.Log("Hit Enemy");
             PlayerAttack player = other.GetComponentInParent<PlayerAttack>();
             //Enemy take damage
-            health -= player.playerPower;
+            health -= player.getPlayerPower();
             Vector2 direction = new Vector2(player.transform.forward.x, player.transform.forward.z);
             //Enemy gets pushed away from player
             TakeKnockBack(direction, player.pushSpeed);

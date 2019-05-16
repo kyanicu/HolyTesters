@@ -1,47 +1,23 @@
-﻿// using System.Collections;
-// using System.Collections.Generic;
-// using UnityEngine;
-// using UnityEngine.UI;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-// public class PickupObject : MonoBehaviour
-// {
-//     private Inventory inventory;
-//     public GameObject itemButton;
+public class PickupObject : MonoBehaviour
+{
+    private Inventory inventory;
 
-//     public GameObject changeImage;
-//     public Image grailSprite;
 
-//     private void Start()
-//     {
-//         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
-//     }
+    private void Start()
+    {
+        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+    }
 
-//     void OnTriggerEnter(Collider other)
-//     {
-//         if (other.gameObject.tag == "Player")
-//         {
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            inventory.addItem(this.name);
+        }
+    }
 
-//             for (int i = 0; i < inventory.slots.Length; i++)
-//             {
-//                 if (inventory.isFull[i] == false)
-//                 {
-//                     inventory.isFull[i] = true;
-//                     changeImage = Instantiate(itemButton, inventory.slots[i].transform, false);
-
-//                     changeImage.GetComponent<Image>();
-
-//                     Destroy(gameObject);
-//                     break;
-//                 }
-//             }
-//             Debug.Log("picked up");
-//             Destroy(gameObject);
-//         }
-//     }
-
-//     // Update is called once per frame
-//     void Update()
-//     {
-
-//     }
-// }
+}

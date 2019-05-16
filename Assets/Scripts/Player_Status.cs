@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 /*
     Created by Nick Tang 
     4/30/19
@@ -18,12 +19,13 @@ public class Player_Status : MonoBehaviour
     [SerializeField] private string equippedGrail;
     public string equippedLiquid;
     public bool grailFilled;
+    public GameObject gameOverScreen;
 
     PlayerAttack playAtk;
     PlayerController playCont;
     private ObjectMover mover;
-    Inventory inventory; 
-
+    Inventory inventory;
+    
 
     [SerializeField]
     private float
@@ -48,8 +50,11 @@ public class Player_Status : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health <= 0)
+        {
+            die();
+        }
 
-        
     }
 
     public void TakeKnockBack(Vector2 direction, float speed)
@@ -81,6 +86,7 @@ public class Player_Status : MonoBehaviour
     {
         healthbar.value = health;
         StartCoroutine(grailEval());
+        
     }
 
     public void setHealth(float amount)
@@ -146,5 +152,17 @@ public class Player_Status : MonoBehaviour
                 playAtk.setPlayerPower(playAtk.getPlayerPower() * 2);
                 break;
         }
+    }
+
+    private void die() {
+        gameOverScreen.SetActive(true);
+        StartCoroutine(waiting());
+        
+    }
+
+    IEnumerator waiting()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(0);
     }
 }

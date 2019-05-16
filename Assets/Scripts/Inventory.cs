@@ -17,17 +17,21 @@ public class Inventory : MonoBehaviour
         return items[index];
     }
 
-    public void addItem(string itemName) {
+    public void addItem(string itemName)
+    {
         items.Add(itemName);
     }
 
-    public void setEquipped(string itemName) {
-        if (items.Contains(itemName)){
+    public void setEquipped(string itemName)
+    {
+        if (items.Contains(itemName))
+        {
             Swap<string>(items, items.IndexOf(itemName), 0);
         }
     }
 
-    public string getEquippedName() {
+    public string getEquippedName()
+    {
         return equipped;
     }
 
@@ -38,14 +42,17 @@ public class Inventory : MonoBehaviour
         list[indexB] = tmp;
     }
 
-    void Start() {
+    void Start()
+    {
         items = new List<string>();
     }
 
-    void Update() {
+    void Update()
+    {
         if (items.Count != 0)
         {
             equipped = items[0];
         }
     }
 }
+

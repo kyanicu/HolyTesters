@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 3675495768736172650}
   m_Layer: 0
   m_Name: PlayerAttackHitbox
-  m_TagString: Untagged
+  m_TagString: PlayerAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPower: 1
-  pushSpeed: 15
+  pushSpeed: 7.5
   hitLength: 2
   leftStart: 0.1
   leftTime: 0.2
@@ -345,6 +345,7 @@ MonoBehaviour:
   equippedGrail: 
   equippedLiquid: 
   grailFilled: 0
+  gameOverScreen: {fileID: 0}
   kbDecel: 30
   kbStunTimer: 0
 --- !u!114 &3675495769034377434
