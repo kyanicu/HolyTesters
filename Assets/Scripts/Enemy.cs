@@ -92,6 +92,21 @@ public class Enemy : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.tag == "PlayerAttack")
+        {
+            //Debug.Log("Hit Enemy");
+            PlayerAttack player = other.GetComponentInParent<PlayerAttack>();
+            //Enemy take damage
+            health -= player.playerPower;
+            Vector2 direction = new Vector2(player.transform.forward.x, player.transform.forward.z);
+            //Enemy gets pushed away from player
+            TakeKnockBack(direction, player.pushSpeed);
+        }
+    }
+
     public void Stun()
     {
         isStunned = true;

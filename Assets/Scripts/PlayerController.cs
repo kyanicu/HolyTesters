@@ -75,6 +75,8 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator Dash(Vector2 direction) 
     {
+        animator.SetTrigger("Dash");
+
         transform.forward = new Vector3(direction.x, 0, direction.y);
 
         isDashing = true;

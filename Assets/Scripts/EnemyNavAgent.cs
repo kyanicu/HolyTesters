@@ -14,10 +14,13 @@ public class EnemyNavAgent : MonoBehaviour
     [SerializeField] private string state;
     
     private bool isStunned;
-    
+
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
         state = "wander";
         player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
@@ -29,9 +32,11 @@ public class EnemyNavAgent : MonoBehaviour
         switch (state)
         {
             case "target":
+                animator.SetBool("Running", true);
                 goToPlayer();
                 break;
             case "wander":
+                animator.SetBool("Running", false);
                 agent.SetDestination(RandomNavmeshLocation(100f));
                 break;
         }
