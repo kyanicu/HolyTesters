@@ -1,19 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< Updated upstream
 using UnityEngine.AI;
-=======
-using UnityEngine.UI;
->>>>>>> Stashed changes
 
 public class LevelBuilder : MonoBehaviour
 {
     public Room startRoomPrefab, endRoomPrefab;
     public List<Room> roomPrefabs = new List<Room>();
     public Vector2 iterantionRange = new Vector2(3, 10);
-    public RawImage loading;
-    public bool isBgOn;
 
     List<Doorway> availableDoorways = new List<Doorway>();
     public NavMeshSurface[] surfaces;
@@ -32,13 +26,7 @@ public class LevelBuilder : MonoBehaviour
     {
         roomLayerMask = LayerMask.GetMask("Room");
         StartCoroutine("GenerateLevel");
-<<<<<<< Updated upstream
         
-=======
-       
-        loading.enabled = true;
-        isBgOn = true;
->>>>>>> Stashed changes
     }
 
     IEnumerator GenerateLevel()
@@ -65,11 +53,8 @@ public class LevelBuilder : MonoBehaviour
         PlaceEndRoom();
 
         yield return interval;
-        loading.enabled = false;
-        isBgOn = false;
-        loading.gameObject.SetActive(isBgOn);
 
-        Debug.Log("Level generation finished");
+        // Debug.Log("Level generation finished");
         // yield return new WaitForSeconds(3);
         // ResetLevelGenerator();
 
