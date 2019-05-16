@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class LevelBuilder : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class LevelBuilder : MonoBehaviour
     public Vector2 iterantionRange = new Vector2(3, 10);
 
     List<Doorway> availableDoorways = new List<Doorway>();
-
+    public NavMeshSurface[] surfaces;
+    private NavMeshSurface roomNavMesh;
 
 
 
@@ -24,6 +26,7 @@ public class LevelBuilder : MonoBehaviour
     {
         roomLayerMask = LayerMask.GetMask("Room");
         StartCoroutine("GenerateLevel");
+        
     }
 
     IEnumerator GenerateLevel()
@@ -119,6 +122,8 @@ public class LevelBuilder : MonoBehaviour
             }
             if (roomPlaced)
             {
+                roomNavMesh = GetComponentInChildren<NavMeshSurface>();
+                roomNavMesh.BuildNavMesh();
                 break;
             }
         }
@@ -269,6 +274,7 @@ public class LevelBuilder : MonoBehaviour
 
 
         StartCoroutine("GenerateLevel");
+        
     }
 
 
